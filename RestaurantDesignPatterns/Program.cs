@@ -2,14 +2,16 @@
 using RestaurantDesignPatterns.Commands;
 using RestaurantDesignPatterns.Handlers;
 using RestaurantDesignPatterns.Infrastructure;
+using RestaurantDesignPatterns.Queries;
 
 namespace RestaurantDesignPatterns
 {
     class Program
     {
 
-        private static readonly DataBase _db = new DataBase();
-        private static readonly CommandHandler _commandHandler = new CommandHandler(_db);
+        private static readonly DbContext _dbContext = new DbContext();
+        private static readonly CommandHandler _commandHandler = new CommandHandler(_dbContext);
+        private static readonly QueryHandler _queryHandler = new QueryHandler(_dbContext);
     
         static void Main(string[] args)
 
@@ -25,6 +27,8 @@ namespace RestaurantDesignPatterns
                 Console.WriteLine();
                 Console.WriteLine("1) Open Table");
                 Console.WriteLine("2) Close Table");
+                Console.WriteLine("3) View Open Tables");
+                Console.WriteLine("4) Find Open Table");
 
                 var selection = Console.ReadKey().KeyChar.ToString();
                 int.TryParse(selection, out int actionSelection);
@@ -62,6 +66,22 @@ namespace RestaurantDesignPatterns
 
                             Console.WriteLine();
                             Console.WriteLine("Table closed");
+                        }
+                        break;
+                    case 3: // View all Open Tables
+                        Console.WriteLine(_queryHandler.Handle(new Queries.GetAllTablesQuery()));
+                        break;
+
+                    case 4: // Find Open Table
+                        {
+                            Console.Write("Table ID: ");
+                            var id = Console.ReadKey().KeyChar.ToString();
+                            int.TryParse(id, out int tableId);
+
+                            var query = new FindTableQuery(tableId);
+
+                            Console.WriteLine();
+                            Console.WriteLine(_queryHandler.Handle(query));
                         }
                         break;
 

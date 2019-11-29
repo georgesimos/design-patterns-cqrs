@@ -6,27 +6,27 @@ using RestaurantDesignPatterns.Models;
 
 namespace RestaurantDesignPatterns.Handlers
 {
-    public class CommandHandler : ICommandHandler
+    public class CommandHandler : ICommandHandler<OpenTableCommand>,ICommandHandler<CloseTableCommand>
     {
-        private DataBase _db;
+        private DbContext _dbContext;
 
-        public CommandHandler(DataBase db)
+        public CommandHandler(DbContext db)
         {
-            _db = db;
+            _dbContext = db;
         }
 
         public void Handle(OpenTableCommand command)
         {
-            _db.Tables.Add(new Table { Id = command.Id,  Name = command.Name });
+            _dbContext.Tables.Add(new Table { Id = command.Id,  Name = command.Name });
         }
 
         public void Handle(CloseTableCommand command)
         {
-            var table = _db.Tables.FirstOrDefault(c => c.Id == command.Id);
+            var table = _dbContext.Tables.FirstOrDefault(t => t.Id == command.Id);
 
             if (table != null)
             {
-                _db.Tables.Remove(table);
+                _dbContext.Tables.Remove(table);
             }
         }
 

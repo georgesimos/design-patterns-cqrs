@@ -4,7 +4,7 @@ using RestaurantDesignPatterns.Models;
 
 namespace RestaurantDesignPatterns.Infrastructure
 {
-    public class DataBase
+    public class DbContext
     {
         // In memory Db
         public IList<Table> Tables = new List<Table>();

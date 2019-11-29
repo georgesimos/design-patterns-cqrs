@@ -8,8 +8,10 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Queries\" />
-    <Folder Include="Handlers\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Models\" />
+    <Folder Include="Infrastructure\Commands\" />
+    <Folder Include="Infrastructure\Queries\" />
+    <Folder Include="Infrastructure\DbContexts\" />
+    <Folder Include="Infrastructure\Models\" />
   </ItemGroup>
 </Project>
