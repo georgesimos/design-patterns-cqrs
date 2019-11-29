@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using RestaurantDesignPatterns.Models;
+using DesignPatterns.Models;
 
-namespace RestaurantDesignPatterns.Infrastructure
+namespace DesignPatterns.Infrastructure
 {
     public class DbContext
     {

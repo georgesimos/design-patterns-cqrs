@@ -1,6 +1,6 @@
-﻿using RestaurantDesignPatterns.Queries;
+﻿using DesignPatterns.Queries;
 
-namespace RestaurantDesignPatterns.Handlers
+namespace DesignPatterns.Handlers
 {
     public interface IQueryHandler
     {

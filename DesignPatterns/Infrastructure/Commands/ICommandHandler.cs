@@ -1,6 +1,6 @@
-﻿using RestaurantDesignPatterns.Commands;
+﻿using DesignPatterns.Commands;
 
-namespace RestaurantDesignPatterns.Handlers
+namespace DesignPatterns.Handlers
 {
     public interface ICommandHandler
     {

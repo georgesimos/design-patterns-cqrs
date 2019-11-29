@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantDesignPatterns", "RestaurantDesignPatterns\RestaurantDesignPatterns.csproj", "{37BE0A2B-3A85-4D5C-B802-C95E81751B90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPatterns", "DesignPatterns\DesignPatterns.csproj", "{37BE0A2B-3A85-4D5C-B802-C95E81751B90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

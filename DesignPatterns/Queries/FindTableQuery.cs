@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RestaurantDesignPatterns.Queries
+namespace DesignPatterns.Queries
 {
     public class FindTableQuery : IQuery
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json;
-using RestaurantDesignPatterns.Infrastructure;
-using RestaurantDesignPatterns.Queries;
+using DesignPatterns.Infrastructure;
+using DesignPatterns.Queries;
 
-namespace RestaurantDesignPatterns.Handlers
+namespace DesignPatterns.Handlers
 {
     public class QueryHandler : IQueryHandler<GetAllTablesQuery>, IQueryHandler<FindTableQuery>
     {

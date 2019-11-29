@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using RestaurantDesignPatterns.Commands;
-using RestaurantDesignPatterns.Infrastructure;
-using RestaurantDesignPatterns.Models;
+using DesignPatterns.Commands;
+using DesignPatterns.Infrastructure;
+using DesignPatterns.Models;
 
-namespace RestaurantDesignPatterns.Handlers
+namespace DesignPatterns.Handlers
 {
     public class CommandHandler : ICommandHandler<OpenTableCommand>,ICommandHandler<CloseTableCommand>
     {

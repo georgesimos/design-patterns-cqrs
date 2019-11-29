@@ -1,10 +1,10 @@
 ﻿using System;
-using RestaurantDesignPatterns.Commands;
-using RestaurantDesignPatterns.Handlers;
-using RestaurantDesignPatterns.Infrastructure;
-using RestaurantDesignPatterns.Queries;
+using DesignPatterns.Commands;
+using DesignPatterns.Handlers;
+using DesignPatterns.Infrastructure;
+using DesignPatterns.Queries;
 
-namespace RestaurantDesignPatterns
+namespace DesignPatterns
 {
     class Program
     {
@@ -19,7 +19,7 @@ namespace RestaurantDesignPatterns
             string keypress;
             do
             {
-                Console.WriteLine("Restaurant Design Patterns");
+                Console.WriteLine("Design Patterns -- Restaurant Example");
                 Console.WriteLine();
 
                 Console.WriteLine("Select Command:");

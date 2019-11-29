@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RestaurantDesignPatterns.Commands
+namespace DesignPatterns.Commands
 {
     public class OpenTableCommand: ICommand
     {

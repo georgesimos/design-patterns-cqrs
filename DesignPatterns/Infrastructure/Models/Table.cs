@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RestaurantDesignPatterns.Models
+namespace DesignPatterns.Models
 {
     public class Table
     {
