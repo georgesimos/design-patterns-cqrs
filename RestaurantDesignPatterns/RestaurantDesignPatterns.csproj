@@ -5,4 +5,11 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Queries\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
 </Project>
