@@ -3,8 +3,8 @@ namespace DesignPatterns.Commands
 {
     public class OpenTableCommand: ICommand
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
+        public int Id;
+        public string Name;
 
         public OpenTableCommand(int id, string name)
         {

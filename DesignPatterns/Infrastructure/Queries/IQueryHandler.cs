@@ -2,6 +2,10 @@
 
 namespace DesignPatterns.Handlers
 {
+    /// <summary>
+    /// Defines a handler for a query.
+    /// </summary>
+    /// <typeparam name="T">Query type being handled</typeparam>
     public interface IQueryHandler
     {
     }

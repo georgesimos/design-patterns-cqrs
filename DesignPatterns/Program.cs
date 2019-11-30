@@ -1,8 +1,10 @@
 ﻿using System;
+using DesignPatterns.Events;
 using DesignPatterns.Commands;
 using DesignPatterns.Handlers;
 using DesignPatterns.Infrastructure;
 using DesignPatterns.Queries;
+using EventHandler = DesignPatterns.Events.EventHandler;
 
 namespace DesignPatterns
 {
@@ -10,6 +12,7 @@ namespace DesignPatterns
     {
 
         private static readonly DbContext _dbContext = new DbContext();
+        private static readonly EventHandler _eventHandler = new EventHandler(_dbContext);
         private static readonly CommandHandler _commandHandler = new CommandHandler(_dbContext);
         private static readonly QueryHandler _queryHandler = new QueryHandler(_dbContext);
     
@@ -48,7 +51,10 @@ namespace DesignPatterns
                             var name = Console.ReadLine();
 
                             var command = new OpenTableCommand(tableId, name);
+                            var @event = new TableWasOpenedEvent(tableId);
+
                             _commandHandler.Handle(command);
+                            _eventHandler.Handle(@event);
 
                             Console.WriteLine();
                             Console.WriteLine("Table added");
@@ -62,7 +68,10 @@ namespace DesignPatterns
                             int.TryParse(id, out int tableId);
 
                             var command = new CloseTableCommand(tableId);
+                            var @event = new TableWasClosedEvent(tableId);
+
                             _commandHandler.Handle(command);
+                            _eventHandler.Handle(@event);
 
                             Console.WriteLine();
                             Console.WriteLine("Table closed");

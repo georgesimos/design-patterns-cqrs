@@ -13,5 +13,10 @@
     <Folder Include="Infrastructure\Queries\" />
     <Folder Include="Infrastructure\DbContexts\" />
     <Folder Include="Infrastructure\Models\" />
+    <Folder Include="Events\" />
+    <Folder Include="Infrastructure\Events\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Infrastructure\Events\EmptyInterface.cs" />
   </ItemGroup>
 </Project>
