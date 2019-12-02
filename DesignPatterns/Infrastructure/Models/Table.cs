@@ -3,8 +3,14 @@ namespace DesignPatterns.Models
 {
     public class Table
     {
-        public int Id; 
-        public string Name;
-    
+        public Table(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+
     }
 }

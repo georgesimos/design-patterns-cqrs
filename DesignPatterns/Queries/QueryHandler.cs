@@ -8,20 +8,20 @@ namespace DesignPatterns.Handlers
 {
     public class QueryHandler : IQueryHandler<GetAllTablesQuery>, IQueryHandler<FindTableQuery>
     {
-        private DbContext _dbContext;
+        private TablesDb _db;
 
-        public QueryHandler(DbContext db)
+        public QueryHandler(TablesDb db)
         {
-            _dbContext = db;
+            _db = db;
         }
 
         public string Handle(GetAllTablesQuery query)
         {
-            return JsonSerializer.Serialize(_dbContext.Tables);
+            return JsonSerializer.Serialize(_db.Tables);
         }
         public string Handle(FindTableQuery query)
         {
-            var table = _dbContext.Tables.FirstOrDefault(table => table.Id == query.Id);
+            var table = _db.Tables.FirstOrDefault(table => table.Id == query.Id);
 
             return JsonSerializer.Serialize(table);
         }

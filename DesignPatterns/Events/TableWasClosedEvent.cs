@@ -5,7 +5,7 @@ namespace DesignPatterns.Events
 {
     public class TableWasClosedEvent : IEvent
     {
-        public int Id;
+        public int Id { get; }
         public TableWasClosedEvent(int id)
         {
             Id = id;

@@ -4,7 +4,7 @@ using DesignPatterns.Models;
 
 namespace DesignPatterns.Infrastructure
 {
-    public class DbContext
+    public class TablesDb
     {
         // In memory Db
         public IList<Table> Tables = new List<Table>();

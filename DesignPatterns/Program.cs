@@ -4,20 +4,24 @@ using DesignPatterns.Commands;
 using DesignPatterns.Handlers;
 using DesignPatterns.Infrastructure;
 using DesignPatterns.Queries;
+
 using EventHandler = DesignPatterns.Events.EventHandler;
+using DesignPatterns.Infrastructure.DbContexts;
 
 namespace DesignPatterns
 {
     class Program
     {
-
-        private static readonly DbContext _dbContext = new DbContext();
-        private static readonly EventHandler _eventHandler = new EventHandler(_dbContext);
-        private static readonly CommandHandler _commandHandler = new CommandHandler(_dbContext);
-        private static readonly QueryHandler _queryHandler = new QueryHandler(_dbContext);
-    
+        
+        private static readonly TablesDb _tablesDb = new TablesDb();
+        private static readonly EventStore _eventStore = new EventStore();
+        private static readonly EventsBus _eventPublisher = new EventsBus();
+        private static readonly EventHandler _eventHandler = new EventHandler(_eventStore);
+        private static readonly CommandHandler _commandHandler = new CommandHandler(_tablesDb, _eventPublisher);
+        private static readonly QueryHandler _queryHandler = new QueryHandler(_tablesDb);
+        private static readonly QueryEventsHandler _eventStoreHandler = new QueryEventsHandler(_eventStore);
+        
         static void Main(string[] args)
-
         {
             string keypress;
             do
@@ -32,6 +36,7 @@ namespace DesignPatterns
                 Console.WriteLine("2) Close Table");
                 Console.WriteLine("3) View Open Tables");
                 Console.WriteLine("4) Find Open Table");
+                Console.WriteLine("5) Show Events");
 
                 var selection = Console.ReadKey().KeyChar.ToString();
                 int.TryParse(selection, out int actionSelection);
@@ -92,6 +97,9 @@ namespace DesignPatterns
                             Console.WriteLine();
                             Console.WriteLine(_queryHandler.Handle(query));
                         }
+                        break;
+                    case 5: // Show All Events
+                        Console.WriteLine(_eventStoreHandler.Handle(new ShowEvents()));
                         break;
 
                     default:// Invalid choice - skip and display start menu
