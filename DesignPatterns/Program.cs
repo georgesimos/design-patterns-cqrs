@@ -5,7 +5,6 @@ using DesignPatterns.Infrastructure;
 using DesignPatterns.Queries;
 using DesignPatterns.Infrastructure.DbContexts;
 
-
 namespace DesignPatterns
 {
     class Program
@@ -96,13 +95,28 @@ namespace DesignPatterns
                         }
                         break;
                     case 4: // View all Open Tables
-                        Console.WriteLine(_queryHandler.Handle(new Queries.GetAllTablesQuery()));
+               
+                        var tables = RetryUtils.RetryIfThrown<ArgumentNullException, string>(() =>
+                        {
+                            return _queryHandler.Handle(new Queries.GetAllTablesQuery());
+
+                        }, 2, 300);
+
+                        Console.WriteLine("All Tables: " + tables);
 
                         break;
                     case 5: // View all Orders
             
                         Console.WriteLine(_queryHandler.Handle(new Queries.GetAllOrdersQuery()));
 
+                        var data = RetryUtils.RetryIfThrown<ArgumentNullException, string>(() =>
+                        {
+                            return _queryHandler.Handle(new Queries.GetAllOrdersQuery());
+
+                        }, 3, 250);
+
+                        Console.WriteLine("Fetched data: " + data);
+                 
                         break;
 
                     case 6: // Find Open Table
