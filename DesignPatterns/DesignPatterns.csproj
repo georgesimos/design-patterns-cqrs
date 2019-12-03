@@ -9,13 +9,13 @@
     <Folder Include="Commands\" />
     <Folder Include="Queries\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Infrastructure\Commands\" />
-    <Folder Include="Infrastructure\Queries\" />
     <Folder Include="Infrastructure\DbContexts\" />
-    <Folder Include="Infrastructure\Models\" />
     <Folder Include="Events\" />
-    <Folder Include="Infrastructure\Events\" />
     <Folder Include="Models\" />
+    <Folder Include="CQRS\" />
+    <Folder Include="CQRS\Commands\" />
+    <Folder Include="CQRS\Events\" />
+    <Folder Include="CQRS\Queries\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Infrastructure\Events\EmptyInterface.cs" />
@@ -28,6 +28,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Migrations" />

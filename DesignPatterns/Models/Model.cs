@@ -8,13 +8,13 @@ namespace DesignPatterns.Models
 
     public class Event
     {
-        public Event(int id, string description)
+        public Event(Guid id, string description)
         {
             Id = id;
             Description = description;
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Description { get; set; }
     }
     

@@ -3,9 +3,9 @@ namespace DesignPatterns.Commands
 {
     public class CloseTableCommand: ICommand
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public CloseTableCommand(int id)
+        public CloseTableCommand(Guid id)
         {
             Id = id;
         }

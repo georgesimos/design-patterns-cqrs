@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Commands;
+﻿using System.Collections;
+using DesignPatterns.Commands;
 
 namespace DesignPatterns.Handlers
 {
@@ -7,13 +8,8 @@ namespace DesignPatterns.Handlers
     /// </summary>
     /// <typeparam name="T">Command type being handled</typeparam>
     /// 
-    public interface ICommandHandler
+    public interface ICommandHandler<TCommand> 
     {
-    }
-
-    public interface ICommandHandler<T> : ICommandHandler
-         where T : ICommand
-    {
-        void Handle(T command);
+        void Handle(TCommand command);
     }
 }

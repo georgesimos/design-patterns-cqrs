@@ -17,5 +17,7 @@ namespace DesignPatterns.Queries
         {
             return JsonSerializer.Serialize(_store.Events);
         }
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using DesignPatterns.Commands;
 using DesignPatterns.Events;
 using DesignPatterns.Infrastructure;
@@ -8,31 +9,48 @@ using DesignPatterns.Models;
 
 namespace DesignPatterns.Handlers
 {
-    public class CommandHandler : ICommandHandler<OpenTableCommand>,ICommandHandler<CloseTableCommand>
+    public class CommandHandler : ICommandHandler<OpenTableCommand>
+        //, ICommandHandler<CloseTableCommand>
     {
-        private TablesDb _dbContext;
-        private readonly IEventsBus _eventPublisher;
+        private EntityStorage _entityStorage;
+        private readonly Bus _bus;
 
-        public CommandHandler(TablesDb db, IEventsBus eventPublisher)
+        public CommandHandler(EntityStorage entityStorage, Bus bus)
         {
-            _dbContext = db;
-            _eventPublisher = eventPublisher;
+            _entityStorage = entityStorage;
+            _bus = bus;
+            _bus = bus;
+            _bus.RegisterQueue<OpenTableCommand>(Handle);
+            _bus.RegisterQueue<CloseTableCommand>(Handle);
         }
 
         public void Handle(OpenTableCommand command)
         {
-            _dbContext.Tables.Add(new Table(command.Id,  command.Name));
+            var aggregate = new TableAggregateRoot(command.Id, command.Name);
+    
+            _entityStorage.Save(command.Id, aggregate);
+
             //_eventPublisher.Publish(new TableWasOpenedEvent(command.Id));
+            //var entity = _dbContext;
+            //Console.WriteLine(JsonSerializer.Serialize(entity));
         }
+
+        public void Handle(NewOrderCommand command)
+        {
+            var entity = _entityStorage.GetById<TableEntity>(command.Id);
+            var aggregate = new TableAggregateRoot(entity);
+
+            aggregate.AddOrder(command.Number, command.Foods);
+            _entityStorage.Save(command.Id, aggregate);
+        }
+
 
         public void Handle(CloseTableCommand command)
         {
-            var table = _dbContext.Tables.FirstOrDefault(t => t.Id == command.Id);
-
-            if (table != null)
-            {
-                _dbContext.Tables.Remove(table);
-            }
+            var entity = _entityStorage.GetById<TableEntity>(command.Id);
+            var aggregate = new TableAggregateRoot(entity);
+            aggregate.CloseTable();
+            _entityStorage.Save(command.Id, aggregate);
         }
 
     }

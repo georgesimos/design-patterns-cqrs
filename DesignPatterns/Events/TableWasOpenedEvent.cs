@@ -5,10 +5,12 @@ namespace DesignPatterns.Events
 {
     public class TableWasOpenedEvent: IEvent
     {
-        public int Id { get; }
-        public TableWasOpenedEvent(int id)
+        public Guid Id { get; }
+        public string Name { get; set; }
+        public TableWasOpenedEvent(Guid id, string name)
         {
             Id = id;
+            Name = name;
         }
     }
 }
