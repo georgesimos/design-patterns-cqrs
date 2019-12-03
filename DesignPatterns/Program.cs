@@ -38,8 +38,9 @@ namespace DesignPatterns
                 Console.WriteLine("2) Add Order");
                 Console.WriteLine("3) Close Table");
                 Console.WriteLine("4) View Open Tables");
-                Console.WriteLine("5) Find Open Table");
-                Console.WriteLine("6) Show Events");
+                Console.WriteLine("5) View All Orders");
+                Console.WriteLine("6) Find Open Table");
+                Console.WriteLine("7) Show All Events");
 
                 var selection = Console.ReadKey().KeyChar.ToString();
                 int.TryParse(selection, out int actionSelection);
@@ -63,23 +64,18 @@ namespace DesignPatterns
                             Console.WriteLine();
                         }
                         break;
-                    case 2: // Close Table
+                    case 2: // Add Order
                         {
                             Console.Write("Select Table ID: ");
                             var id = Console.ReadLine();
                             Guid.TryParse(id, out Guid tableId);
 
                             Console.WriteLine();
-                            Console.Write("Order Number ID : ");
-                            var num = Console.ReadKey().KeyChar.ToString();
-                            int.TryParse(num, out int number);
-
-                            Console.WriteLine();
                             Console.Write("Foods Order: ");
                             var foods = Console.ReadLine();
              
 
-                            var command = new NewOrderCommand(tableId, number, foods);
+                            var command = new NewOrderCommand(tableId, foods);
                             _commandHandler.Handle(command);
 
                             Console.WriteLine();
@@ -101,11 +97,15 @@ namespace DesignPatterns
                         break;
                     case 4: // View all Open Tables
                         Console.WriteLine(_queryHandler.Handle(new Queries.GetAllTablesQuery()));
-                        //Console.WriteLine(_queryHandler.Handle(new Queries.GetAllOrdersQuery()));
-                        
+
+                        break;
+                    case 5: // View all Orders
+            
+                        Console.WriteLine(_queryHandler.Handle(new Queries.GetAllOrdersQuery()));
+
                         break;
 
-                    case 5: // Find Open Table
+                    case 6: // Find Open Table
                         {
                             Console.Write("Table Name: ");
                             var name = Console.ReadLine();
@@ -116,7 +116,7 @@ namespace DesignPatterns
                             Console.WriteLine(_queryHandler.Handle(query));
                         }
                         break;
-                    case 6: // Show All Events
+                    case 7: // Show All Events
                         Console.WriteLine(_eventStoreHandler.Handle(new ShowEvents()));
                         break;
 

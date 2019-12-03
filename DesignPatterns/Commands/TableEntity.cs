@@ -25,7 +25,6 @@ namespace DesignPatterns.Commands
 
     public class OrderEntity
     {
-        public int Number { get; set; }
         public string Foods { get; set; }
     }
 }

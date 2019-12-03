@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DesignPatterns.Events;
 using DesignPatterns.Infrastructure;
 using DesignPatterns.Models;
@@ -31,38 +29,22 @@ namespace DesignPatterns.Commands
             Console.WriteLine($"{Entity.Name} Table have been closed.");
         }
 
-        public void AddOrder(int number, string foods)
+        public void AddOrder( string foods)
         {
-            CheckForDuplicateOrderNumbers(number);
             var newOrder = new OrderEntity
             {
-                Number = number,
                 Foods = foods
             };
-            Entity.Orders.Add(newOrder);
-            Publish(new OrderAddedEvent(Entity.Id, newOrder.Number, newOrder.Foods), "newOrder");
-            Console.WriteLine("Order Completed.");
-            //var tab = new Table
-            //    {
-            //        Name = "salam",
-            //        Orders = new List<Order>
-            //    {
-            //        new Order { Foods = "Omelet"},
-            //        new Order { Foods = "Patote" },
-            //        new Order { Foods = "Mousakas" }
-            //    }
-            //            };
-            //        _database.Tables.Add(tab);
-            //        _database.SaveChanges();
-                }
 
-        private void CheckForDuplicateOrderNumbers(int number)
-        {
-            if (Entity.Orders.Any(order => order.Number == number))
-            {
-                throw new Exception("Duplicate order number");
-            }
+            Entity.Orders.Add(newOrder);
+            Publish(new OrderAddedEvent(Entity.Id, newOrder.Foods), "newOrder");
+            Console.WriteLine("Order Completed.");
+
+            var nOrder = new Order { Foods =foods, TableId = Entity.Id};
+            _database.Orders.Add(nOrder);
+            _database.SaveChanges();
         }
+
     }
 
 

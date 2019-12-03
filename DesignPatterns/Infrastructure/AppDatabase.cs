@@ -24,12 +24,12 @@ namespace DesignPatterns.Infrastructure
             optionsBuilder.UseSqlite("Filename=./app.db");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Order>()
-                .HasOne(p => p.Table)
-                .WithMany(b => b.Orders);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Order>()
+        //        .HasOne(p => p.Table)
+        //        .WithMany(b => b.Orders);
+        //}
 
         public DbSet<Table> Tables { get; set; }
         public DbSet<Order> Orders { get; set; }

@@ -3,14 +3,16 @@ using System;
 using DesignPatterns.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesignPatterns.Migrations
 {
     [DbContext(typeof(AppDatabase))]
-    partial class AppDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20191203183830_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

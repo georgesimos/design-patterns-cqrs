@@ -32,7 +32,7 @@ namespace DesignPatterns.Handlers
             var entity = _entityStorage.GetById<TableEntity>(command.Id);
             var aggregate = new TableAggregateRoot(entity);
 
-            aggregate.AddOrder(command.Number, command.Foods);
+            aggregate.AddOrder(command.Foods);
             _entityStorage.Save(command.Id, aggregate);
         }
 
