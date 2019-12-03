@@ -13,10 +13,13 @@ namespace DesignPatterns
 
 
         private static readonly EventStore _eventStore = new EventStore();
+        private static readonly AppDatabase _database= new AppDatabase();
+
         private static readonly Bus bus = new Bus();
+
         private static readonly EntityStorage _tablesDb = new EntityStorage(bus);
         private static readonly CommandHandler _commandHandler = new CommandHandler(_tablesDb, bus);
-        //private static readonly QueryHandler _queryHandler = new QueryHandler(_tablesDb);
+        private static readonly QueryHandler _queryHandler = new QueryHandler(_database);
         private static readonly QueryEventsHandler _eventStoreHandler = new QueryEventsHandler(_eventStore);
 
         static void Main(string[] args)
@@ -97,19 +100,20 @@ namespace DesignPatterns
                         }
                         break;
                     case 4: // View all Open Tables
-                        //Console.WriteLine(_queryHandler.Handle(new Queries.GetAllTablesQuery()));
+                        Console.WriteLine(_queryHandler.Handle(new Queries.GetAllTablesQuery()));
+                        //Console.WriteLine(_queryHandler.Handle(new Queries.GetAllOrdersQuery()));
+                        
                         break;
 
                     case 5: // Find Open Table
                         {
-                            Console.Write("Table ID: ");
-                            var id = Console.ReadKey().KeyChar.ToString();
-                            int.TryParse(id, out int tableId);
+                            Console.Write("Table Name: ");
+                            var name = Console.ReadLine();
 
-                            var query = new FindTableQuery(tableId);
+                            var query = new FindTableQuery(name);
 
                             Console.WriteLine();
-                            //Console.WriteLine(_queryHandler.Handle(query));
+                            Console.WriteLine(_queryHandler.Handle(query));
                         }
                         break;
                     case 6: // Show All Events

@@ -3,10 +3,10 @@ namespace DesignPatterns.Queries
 {
     public class FindTableQuery : IQuery
     {
-        public int Id;
-        public FindTableQuery(int id)
+        public string Name;
+        public FindTableQuery(string name)
         {
-            Id = id;
+            Name = name;
         }
     }
 }

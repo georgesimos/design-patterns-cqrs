@@ -24,9 +24,15 @@ namespace DesignPatterns.Infrastructure
             optionsBuilder.UseSqlite("Filename=./app.db");
         }
 
-        // In memory Db
-        //public IList<Event> Events = new List<Event>();
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>()
+                .HasOne(p => p.Table)
+                .WithMany(b => b.Orders);
+        }
+
         public DbSet<Table> Tables { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 
 

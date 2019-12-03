@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DesignPatterns.Events;
 using DesignPatterns.Infrastructure;
+using DesignPatterns.Models;
 
 namespace DesignPatterns.Commands
 {
     public class TableAggregateRoot : AggregateRoot<TableEntity>
     {
-        public TableAggregateRoot(TableEntity entity) : base(entity)
+        private AppDatabase _database = new AppDatabase();
+
+        public TableAggregateRoot(TableEntity  entity) : base(entity)
         {
         }
 
@@ -16,6 +20,9 @@ namespace DesignPatterns.Commands
             Entity = new TableEntity(id, name);
             Publish(new TableWasOpenedEvent(Entity.Id, Entity.Name), "openTable");
             Console.WriteLine($"{name} Table have been Opened with ID : {id} ");
+
+            _database.Tables.Add(new Table { TableId=id, Name=name });
+            _database.SaveChanges();
         }
 
         public void CloseTable()
@@ -27,7 +34,7 @@ namespace DesignPatterns.Commands
         public void AddOrder(int number, string foods)
         {
             CheckForDuplicateOrderNumbers(number);
-            var newOrder = new Order
+            var newOrder = new OrderEntity
             {
                 Number = number,
                 Foods = foods
@@ -35,7 +42,19 @@ namespace DesignPatterns.Commands
             Entity.Orders.Add(newOrder);
             Publish(new OrderAddedEvent(Entity.Id, newOrder.Number, newOrder.Foods), "newOrder");
             Console.WriteLine("Order Completed.");
-        }
+            //var tab = new Table
+            //    {
+            //        Name = "salam",
+            //        Orders = new List<Order>
+            //    {
+            //        new Order { Foods = "Omelet"},
+            //        new Order { Foods = "Patote" },
+            //        new Order { Foods = "Mousakas" }
+            //    }
+            //            };
+            //        _database.Tables.Add(tab);
+            //        _database.SaveChanges();
+                }
 
         private void CheckForDuplicateOrderNumbers(int number)
         {

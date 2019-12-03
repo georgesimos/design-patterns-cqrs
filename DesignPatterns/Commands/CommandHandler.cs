@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Linq;
-using System.Text.Json;
 using DesignPatterns.Commands;
-using DesignPatterns.Events;
 using DesignPatterns.Infrastructure;
-using DesignPatterns.Infrastructure.Events;
-using DesignPatterns.Models;
+
 
 namespace DesignPatterns.Handlers
 {
     public class CommandHandler : ICommandHandler<OpenTableCommand>
-        //, ICommandHandler<CloseTableCommand>
+        , ICommandHandler<CloseTableCommand>
     {
+     
         private EntityStorage _entityStorage;
         private readonly Bus _bus;
 
@@ -27,12 +24,7 @@ namespace DesignPatterns.Handlers
         public void Handle(OpenTableCommand command)
         {
             var aggregate = new TableAggregateRoot(command.Id, command.Name);
-    
             _entityStorage.Save(command.Id, aggregate);
-
-            //_eventPublisher.Publish(new TableWasOpenedEvent(command.Id));
-            //var entity = _dbContext;
-            //Console.WriteLine(JsonSerializer.Serialize(entity));
         }
 
         public void Handle(NewOrderCommand command)

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DesignPatterns.Migrations
+namespace DesignPatterns.Migrations.EventStoreMigrations
 {
-    public partial class MyFirstMigration : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,8 +11,7 @@ namespace DesignPatterns.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

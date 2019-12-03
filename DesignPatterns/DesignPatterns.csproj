@@ -9,7 +9,6 @@
     <Folder Include="Commands\" />
     <Folder Include="Queries\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Infrastructure\DbContexts\" />
     <Folder Include="Events\" />
     <Folder Include="Models\" />
     <Folder Include="CQRS\" />
