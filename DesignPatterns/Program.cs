@@ -10,15 +10,23 @@ namespace DesignPatterns
     class Program
     {
 
-
+        // EventStore: create an SQLite file called events for saving the events
+        // For simplicity we dont store our events with extra meta data like version and timestamp
+        // We could use those meta data for reproduce the data from our event store
         private static readonly EventStore _eventStore = new EventStore();
-        private static readonly AppDatabase _database= new AppDatabase();
-
+        // Creating the app database
+        private static readonly AppDatabase _database = new AppDatabase();
+        // Will register in a queue the commands and in a topic the events
+        // And Using the EntityStorage it will Execute the event
         private static readonly Bus bus = new Bus();
-
+        // Using the bus for sending the events... 
         private static readonly EntityStorage _tablesDb = new EntityStorage(bus);
+        // Commands Handler
         private static readonly CommandHandler _commandHandler = new CommandHandler(_tablesDb, bus);
+        // Queries Handler
         private static readonly QueryHandler _queryHandler = new QueryHandler(_database);
+        // Queries Event Handler similar with the Queries Handler
+        // Exist only for showing the events to the user.
         private static readonly QueryEventsHandler _eventStoreHandler = new QueryEventsHandler(_eventStore);
 
         static void Main(string[] args)
@@ -72,7 +80,7 @@ namespace DesignPatterns
                             Console.WriteLine();
                             Console.Write("Foods Order: ");
                             var foods = Console.ReadLine();
-             
+
 
                             var command = new NewOrderCommand(tableId, foods);
                             _commandHandler.Handle(command);
@@ -95,7 +103,8 @@ namespace DesignPatterns
                         }
                         break;
                     case 4: // View all Open Tables
-               
+
+                        // Retry pattern 
                         var tables = RetryUtils.RetryIfThrown<ArgumentNullException, string>(() =>
                         {
                             return _queryHandler.Handle(new Queries.GetAllTablesQuery());
@@ -106,9 +115,10 @@ namespace DesignPatterns
 
                         break;
                     case 5: // View all Orders
-            
+
                         Console.WriteLine(_queryHandler.Handle(new Queries.GetAllOrdersQuery()));
 
+                        // Retry pattern 
                         var data = RetryUtils.RetryIfThrown<ArgumentNullException, string>(() =>
                         {
                             return _queryHandler.Handle(new Queries.GetAllOrdersQuery());
@@ -116,7 +126,7 @@ namespace DesignPatterns
                         }, 3, 250);
 
                         Console.WriteLine("Fetched data: " + data);
-                 
+
                         break;
 
                     case 6: // Find Open Table
